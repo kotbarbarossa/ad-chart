@@ -28,6 +28,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "prepare": "pnpm build",
+    "ts:screenshots": "tsx scripts/screenshots.ts",
     "build:demo": "vite build --mode demo",
     "preview": "vite preview --outDir demo-dist",
     "typecheck": "tsc --noEmit",
