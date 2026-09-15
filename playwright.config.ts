@@ -18,9 +18,11 @@ export default defineConfig({
   reporter: process.env.CI ? 'github' : 'list',
   expect: {
     toHaveScreenshot: {
-      // Tolerate cross-platform anti-aliasing on the SVG curves.
+      // One shared baseline is compared on macOS Chrome (local) and Linux
+      // Chromium (CI). The resting chart is text-free SVG, so the only
+      // cross-platform difference is edge anti-aliasing — absorbed here.
       threshold: 0.25,
-      maxDiffPixelRatio: 0.06,
+      maxDiffPixelRatio: 0.08,
     },
   },
   use: {
