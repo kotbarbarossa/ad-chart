@@ -7,5 +7,13 @@
  */
 import Highcharts from 'highcharts';
 
-export type { Chart, Options, SeriesOptionsType } from 'highcharts';
+export type {
+  Chart,
+  Options,
+  Point,
+  PointOptionsObject,
+  SeriesOptionsType,
+  XAxisOptions,
+  YAxisOptions,
+} from 'highcharts';
 export { Highcharts };
