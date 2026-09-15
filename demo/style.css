@@ -1,0 +1,182 @@
+:root {
+  --pink-cell: #fcebeb;
+  --top-bar: #e5f0fc;
+  --ink: #333;
+  --muted: #666;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  color: var(--ink);
+}
+
+body {
+  margin: 0;
+  padding: 2rem 1rem 4rem;
+  background: #fafafa;
+}
+
+.page {
+  max-width: 760px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.page__head h1 {
+  margin: 0 0 0.25rem;
+  font-size: 1.6rem;
+}
+
+.lead {
+  margin: 0;
+  color: var(--muted);
+}
+
+.panel h2 {
+  margin: 0 0 0.75rem;
+  font-size: 1rem;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.panel__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+}
+
+.panel__head h2 {
+  margin: 0;
+}
+
+.chart {
+  width: 100%;
+  height: 220px;
+}
+
+.chart--plain {
+  background: #fff;
+  border-radius: 4px;
+}
+
+/* Reference-like table row. */
+.table {
+  border: 1px solid #e6e6e6;
+  border-radius: 6px;
+  overflow: hidden;
+  background: #fff;
+}
+
+.table__bar {
+  height: 28px;
+  background: var(--top-bar);
+}
+
+.table__row {
+  display: grid;
+  grid-template-columns: 64px 1fr 48px;
+  align-items: stretch;
+  background: var(--pink-cell);
+}
+
+.table__labels {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 8px 6px;
+  font-size: 12px;
+  color: #555;
+  background: #fff;
+  border-right: 1px solid #eee;
+}
+
+.table__day {
+  font-weight: 700;
+  color: #222;
+}
+
+.table__cell {
+  padding: 8px;
+}
+
+.table__pencil {
+  border: none;
+  background: transparent;
+  color: #888;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.btn {
+  border: 1px solid #d0d0d0;
+  background: #fff;
+  border-radius: 6px;
+  padding: 6px 12px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background: #f2f2f2;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.segmented {
+  display: inline-flex;
+  border: 1px solid #d0d0d0;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.segmented__btn {
+  border: none;
+  background: #fff;
+  padding: 6px 12px;
+  font-size: 13px;
+  cursor: pointer;
+  color: #555;
+}
+
+.segmented__btn + .segmented__btn {
+  border-left: 1px solid #d0d0d0;
+}
+
+.segmented__btn.is-active {
+  background: #3b78f5;
+  color: #fff;
+}
+
+.code {
+  margin: 0;
+  padding: 14px 16px;
+  background: #1e1e1e;
+  color: #e6e6e6;
+  border-radius: 6px;
+  overflow-x: auto;
+  font-size: 12.5px;
+  line-height: 1.5;
+}
+
+/* Tooltip inner layout (Highcharts draws the card; these style the HTML). */
+.adc-tt {
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.adc-tt__date {
+  margin-bottom: 4px;
+  color: #333;
+}
+
+.adc-tt__row {
+  white-space: nowrap;
+}
+
+.adc-tt__dot {
+  font-size: 12px;
+}
