@@ -26,5 +26,8 @@ test-results/
 npm-debug.log*
 pnpm-debug.log*
 
+# Extracted GIF frames (regenerable via `pnpm extract-frames`)
+docs/frames/
+
 # Internal working brief (not for public repo)
 ТЗ_для_Claude_Code.md

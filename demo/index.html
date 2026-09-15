@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ad-chart — combined time-series chart</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <main class="page">
+      <header class="page__head">
+        <h1>ad-chart</h1>
+        <p class="lead">
+          A combined time-series chart: area + columns + spline + line, with a shared tooltip.
+        </p>
+      </header>
+
+      <!-- Reference-like environment: the chart sits in a pink table row. -->
+      <section class="panel">
+        <h2>In context</h2>
+        <div class="table">
+          <div class="table__bar"></div>
+          <div class="table__row">
+            <div class="table__labels">
+              <span class="table__day">Tdy</span>
+              <span>0%</span>
+              <span>$0</span>
+              <span>$0</span>
+              <span>0</span>
+              <span>0</span>
+              <span>—</span>
+            </div>
+            <div class="table__cell">
+              <div id="chart-context" class="chart"></div>
+            </div>
+            <button class="table__pencil" type="button" aria-label="Edit">✎ ▾</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Same chart on a plain background, plus controls. -->
+      <section class="panel">
+        <div class="panel__head">
+          <h2>On white</h2>
+          <div class="controls">
+            <div class="segmented">
+              <button id="mode-vanilla" class="segmented__btn is-active" type="button">Vanilla</button>
+              <button id="mode-react" class="segmented__btn" type="button">React</button>
+            </div>
+            <button id="randomize" class="btn" type="button">Randomize data</button>
+          </div>
+        </div>
+        <div id="chart-plain" class="chart chart--plain"></div>
+      </section>
+
+      <section class="panel">
+        <h2>How to use</h2>
+        <pre class="code"><code>import { createAdChart } from 'ad-chart';
+
+const chart = createAdChart('#chart', {
+  cost:         [['2026-06-10', 2.04],  ['2026-06-11', 25.85], /* ... */],
+  cpa:          [['2026-06-10', 0.68],  /* ... */],
+  roiConfirmed: [['2026-06-10', 610.78], /* ... */],
+  conversions:  [['2026-06-10', 3],     /* ... */],
+}, { height: 220 });
+
+chart.update(newData);
+chart.destroy();</code></pre>
+      </section>
+    </main>
+
+    <script type="module" src="./main.ts"></script>
+  </body>
+</html>
