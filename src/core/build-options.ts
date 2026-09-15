@@ -171,6 +171,8 @@ export function buildChartOptions(data: NormalizedData, options: AdChartOptions 
     title: { text: '' },
     credits: { enabled: false },
     legend: { enabled: false },
+    // Decorative chart with a custom tooltip; the a11y module isn't needed.
+    accessibility: { enabled: false },
     xAxis: {
       type: 'category',
       visible: false,
