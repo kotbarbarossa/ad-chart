@@ -8,7 +8,18 @@ type LooseSeries = {
   type: string;
   yAxis: number;
   zIndex: number;
+  color?: unknown;
+  lineWidth?: number;
   marker?: { enabled?: boolean; symbol?: string };
+  states?: {
+    hover?: {
+      color?: string;
+      brightness?: number;
+      halo?: unknown;
+      lineWidth?: number;
+      lineWidthPlus?: number;
+    };
+  };
 };
 
 const options = buildChartOptions(normalize(referenceData));
@@ -18,7 +29,7 @@ const byId = (id: string) => series.find((s) => s.id === id) as LooseSeries;
 describe('buildChartOptions: series', () => {
   it('builds the four series with the right Highcharts types', () => {
     expect(series).toHaveLength(4);
-    expect(byId('cost').type).toBe('area');
+    expect(byId('cost').type).toBe('areaspline');
     expect(byId('cpa').type).toBe('column');
     expect(byId('roiConfirmed').type).toBe('spline');
     expect(byId('conversions').type).toBe('line');
@@ -42,6 +53,32 @@ describe('buildChartOptions: series', () => {
 
   it('puts each series on its own Y-axis', () => {
     expect(series.map((s) => s.yAxis)).toEqual([0, 1, 2, 3]);
+  });
+
+  it('draws Cost as a strokeless fill that stays flat on hover', () => {
+    const cost = byId('cost');
+    expect(cost.lineWidth).toBe(0);
+    expect(cost.states?.hover?.lineWidth).toBe(0);
+    expect(cost.states?.hover?.lineWidthPlus).toBe(0);
+  });
+
+  it('draws ROI with a top-to-bottom vertical stroke gradient', () => {
+    const color = byId('roiConfirmed').color as {
+      linearGradient?: { x1: number; y1: number; x2: number; y2: number };
+      stops?: [number, string][];
+    };
+    expect(color.linearGradient).toEqual({ x1: 0, y1: 0, x2: 0, y2: 1 });
+    const stops = color.stops ?? [];
+    expect(stops[0]?.[0]).toBe(0);
+    expect(stops.at(-1)?.[0]).toBe(1);
+    // Bottom stop (the minimum) is lighter than the top stop.
+    expect(stops.at(-1)?.[1]).not.toBe(stops[0]?.[1]);
+  });
+
+  it('highlights the hovered CPA column in solid blue with no halo', () => {
+    const hover = byId('cpa').states?.hover;
+    expect(typeof hover?.color).toBe('string');
+    expect(hover?.halo).toBeNull();
   });
 });
 
@@ -133,6 +170,24 @@ describe('buildChartOptions: tooltip formatter', () => {
 
   it('handles an empty points array', () => {
     expect(call([])).toContain('10.06.2026');
+  });
+
+  it('renders the ROI dot as a solid colour even though its series is a gradient', () => {
+    const html = call([
+      {
+        index: 2,
+        y: 161.47,
+        // A gradient object, as the real ROI series exposes.
+        color: { linearGradient: {}, stops: [] } as unknown as string,
+        series: {
+          name: 'ROI confirmed',
+          color: { linearGradient: {}, stops: [] } as unknown as string,
+          userOptions: { id: 'roiConfirmed' },
+        },
+      },
+    ]);
+    expect(html).toContain('color:#0C8400');
+    expect(html).not.toContain('[object Object]');
   });
 });
 

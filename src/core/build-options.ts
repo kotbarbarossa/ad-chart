@@ -2,6 +2,7 @@ import type { Options, Point, SeriesOptionsType } from '../highcharts';
 import { formatValue } from './format';
 import {
   COLUMN,
+  COLUMN_HOVER_COLOR,
   CONVERSIONS_MARKER,
   COST_FILL,
   DEFAULT_AXIS_HEADROOM,
@@ -9,6 +10,7 @@ import {
   DEFAULT_LABELS,
   FRAME,
   HALO,
+  ROI_GRADIENT_STOPS,
   SERIES_KEYS,
   type SeriesKey,
   STROKE,
@@ -84,10 +86,14 @@ function buildSeries(data: NormalizedData, resolved: ResolvedOptions): SeriesOpt
   return [
     {
       ...common('cost'),
-      type: 'area',
-      lineWidth: STROKE.costEdge,
+      // areaspline: a smooth filled curve, matching the reference's rounded top.
+      type: 'areaspline',
+      // No visible top edge; the fill alone defines the shape.
+      lineWidth: 0,
       fillColor: hexToRgba(COST_FILL.color, COST_FILL.opacity),
       threshold: 0,
+      // Keep the fill flat on hover (no edge line appearing or thickening).
+      states: { hover: { lineWidth: 0, lineWidthPlus: 0 } },
       marker: {
         enabled: false,
         symbol: 'circle',
@@ -108,12 +114,19 @@ function buildSeries(data: NormalizedData, resolved: ResolvedOptions): SeriesOpt
       borderWidth: 0,
       borderRadius: COLUMN.borderRadius,
       pointWidth: COLUMN.pointWidth,
-      states: { hover: { brightness: 0.12 } },
+      // Hovered bar turns vivid blue; no grey halo (that belongs to the lines).
+      states: { hover: { color: COLUMN_HOVER_COLOR, brightness: 0, halo: null } },
     },
     {
       ...common('roiConfirmed'),
       type: 'spline',
       lineWidth: STROKE.spline,
+      // Vertical stroke gradient (dark top -> light bottom over the path's
+      // bounding box). The tooltip dot/marker keep the solid `colors.roiConfirmed`.
+      color: {
+        linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+        stops: ROI_GRADIENT_STOPS.map(([stop, hex]) => [stop, hex] as [number, string]),
+      },
       marker: {
         enabled: false,
         symbol: 'diamond',
@@ -202,12 +215,17 @@ export function buildChartOptions(data: NormalizedData, options: AdChartOptions 
         const points: Point[] = this.points ?? [];
         const index = points[0]?.index ?? 0;
         const timeMs = times[index] ?? 0;
-        const rows: TooltipRow[] = points.map((p) => ({
-          key: (p.series.userOptions.id ?? '') as SeriesKey,
-          label: p.series.name,
-          color: (typeof p.color === 'string' ? p.color : p.series.color) as string,
-          value: p.y ?? null,
-        }));
+        const rows: TooltipRow[] = points.map((p) => {
+          const key = (p.series.userOptions.id ?? '') as SeriesKey;
+          return {
+            key,
+            label: p.series.name,
+            // Always the solid series colour: the ROI series `color` is a
+            // gradient object, so the dot must come from the resolved palette.
+            color: resolved.colors[key],
+            value: p.y ?? null,
+          };
+        });
         return renderTooltip(timeMs, rows);
       },
     },

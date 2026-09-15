@@ -27,8 +27,8 @@ export const SERIES_KEYS: readonly SeriesKey[] = [
 ] as const;
 
 /** Highcharts series type used for each key. */
-export const SERIES_TYPE: Record<SeriesKey, 'area' | 'column' | 'spline' | 'line'> = {
-  cost: 'area',
+export const SERIES_TYPE: Record<SeriesKey, 'areaspline' | 'column' | 'spline' | 'line'> = {
+  cost: 'areaspline',
   cpa: 'column',
   roiConfirmed: 'spline',
   conversions: 'line',
@@ -42,13 +42,32 @@ export const DEFAULT_LABELS: Record<SeriesKey, string> = {
   conversions: 'Conversions',
 };
 
-/** Default series colours (eyedropped from the reference). */
+/**
+ * Default series colours (eyedropped from the reference). `roiConfirmed` is the
+ * solid dark green used for the tooltip dot and hover marker; the ROI line
+ * itself is drawn with `ROI_GRADIENT` (see below).
+ */
 export const DEFAULT_COLORS: Record<SeriesKey, string> = {
   cost: '#F2E14F',
   cpa: '#3B78F5',
-  roiConfirmed: '#2E9616',
+  roiConfirmed: '#0C8400',
   conversions: '#BC1FDE',
 };
+
+/**
+ * Vertical stroke gradient for the ROI spline (over the curve's bounding box):
+ * dark green is held across the top ~60% (the peak at ~10.06 and the rising
+ * right leg stay dark, as in the reference) and only the bottom — the minimum
+ * at ~13.06 — fades to a lighter lime green. Eyedropped from `docs/frames`.
+ */
+export const ROI_GRADIENT_STOPS: readonly [number, string][] = [
+  [0, '#0C8400'],
+  [0.62, '#0C8400'],
+  [1, '#3AC201'],
+];
+
+/** CPA column hover: the bar under the cursor turns a vivid, saturated blue. */
+export const COLUMN_HOVER_COLOR = '#1F6BFF';
 
 /**
  * Per-series axis headroom: the hidden Y-axis maximum is `dataMax * headroom`
@@ -70,8 +89,7 @@ export const COST_FILL = {
 
 /** Stroke widths, in px at the default height. */
 export const STROKE = {
-  costEdge: 1.5,
-  spline: 4,
+  spline: 6,
   line: 1.5,
 } as const;
 
@@ -89,8 +107,8 @@ export const HALO = {
 
 /** CPA column geometry. */
 export const COLUMN = {
-  borderRadius: 1,
-  pointWidth: 14,
+  borderRadius: 2,
+  pointWidth: 16,
 } as const;
 
 /** Plot frame and canvas. */
