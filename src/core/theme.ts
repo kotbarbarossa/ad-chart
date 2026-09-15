@@ -46,7 +46,7 @@ export const DEFAULT_LABELS: Record<SeriesKey, string> = {
 export const DEFAULT_COLORS: Record<SeriesKey, string> = {
   cost: '#F2E14F',
   cpa: '#3B78F5',
-  roiConfirmed: '#149400',
+  roiConfirmed: '#2E9616',
   conversions: '#BC1FDE',
 };
 

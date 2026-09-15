@@ -10,3 +10,8 @@ randomizeButton?.addEventListener('click', () => {
   contextChart.update(next);
   plainChart.update(next);
 });
+
+// Dev-only handle for screenshots / e2e (stripped from the production build).
+if (import.meta.env.DEV) {
+  (window as unknown as { __adchart?: unknown }).__adchart = { contextChart, plainChart };
+}
