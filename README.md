@@ -37,6 +37,20 @@ Requires Node.js 22+ and pnpm (via Corepack: `corepack enable pnpm`).
 
 ## Usage: initialize with four series
 
+### Installation
+
+Install straight from GitHub — no npm publish needed. The package has no committed
+build output; it compiles itself on install via the `prepare` script (`pnpm build`),
+so `dist/` is always fresh for your checkout:
+
+```bash
+pnpm add github:kotbarbarossa/ad-chart
+pnpm add highcharts   # required peer dependency (>=11)
+```
+
+`highcharts` is a **peer dependency** — bring your own version. For the React wrapper
+(`ad-chart/react`) also install `react` and `react-dom` (they are optional peers).
+
 ### Vanilla (main API)
 
 ```ts
