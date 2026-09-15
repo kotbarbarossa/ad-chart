@@ -42,7 +42,13 @@
       <section class="panel">
         <div class="panel__head">
           <h2>On white</h2>
-          <button id="randomize" class="btn" type="button">Randomize data</button>
+          <div class="controls">
+            <div class="segmented">
+              <button id="mode-vanilla" class="segmented__btn is-active" type="button">Vanilla</button>
+              <button id="mode-react" class="segmented__btn" type="button">React</button>
+            </div>
+            <button id="randomize" class="btn" type="button">Randomize data</button>
+          </div>
         </div>
         <div id="chart-plain" class="chart chart--plain"></div>
       </section>

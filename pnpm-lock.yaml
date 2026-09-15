@@ -194,9 +194,6 @@ importers:
       highcharts:
         specifier: ^13.0.2
         version: 13.0.2
-      highcharts-react-official:
-        specifier: ^3.2.3
-        version: 3.2.3(highcharts@13.0.2)(react@19.3.0)
       lefthook:
         specifier: ^2.1.12
         version: 2.1.12
@@ -1025,12 +1022,6 @@ packages:
 
   glob-to-regexp@0.4.1:
     resolution: {integrity: sha512-lkX1HJXwyMcprw/5YUZc2s7DrpAiHB21/V+E1rHUrVNokkvB6bqMzT0VfV6/86ZNabt1k14YOIaT7nDvOX3Iiw==}
-
-  highcharts-react-official@3.2.3:
-    resolution: {integrity: sha512-2gL8bVGe6Pf75tSe6IB5Ucd0nIOJX7ZrpttQBZVrjN2J9StdVZ12aOinXHIOFvlc6EzP8CbN13WS8NUq+9mptA==}
-    peerDependencies:
-      highcharts: '>=6.0.0'
-      react: '>=16.8.0'
 
   highcharts@13.0.2:
     resolution: {integrity: sha512-BBqoxQpRgA4c2oCfIIBRVIs+lt1CHKs1cZic9YBt54OukFY6DSyvQbLZ+/1UrN2iKu24I5HvMdVG89Z+Pis6zA==}
@@ -1993,11 +1984,6 @@ snapshots:
     optional: true
 
   glob-to-regexp@0.4.1: {}
-
-  highcharts-react-official@3.2.3(highcharts@13.0.2)(react@19.3.0):
-    dependencies:
-      highcharts: 13.0.2
-      react: 19.3.0
 
   highcharts@13.0.2: {}
 

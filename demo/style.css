@@ -120,6 +120,37 @@ body {
   background: #f2f2f2;
 }
 
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.segmented {
+  display: inline-flex;
+  border: 1px solid #d0d0d0;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.segmented__btn {
+  border: none;
+  background: #fff;
+  padding: 6px 12px;
+  font-size: 13px;
+  cursor: pointer;
+  color: #555;
+}
+
+.segmented__btn + .segmented__btn {
+  border-left: 1px solid #d0d0d0;
+}
+
+.segmented__btn.is-active {
+  background: #3b78f5;
+  color: #fff;
+}
+
 .code {
   margin: 0;
   padding: 14px 16px;
