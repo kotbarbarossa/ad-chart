@@ -37,6 +37,7 @@ export default defineConfig(({ command, mode }) => {
         external: [
           'highcharts',
           /^highcharts\/.*/,
+          'zod',
           'react',
           'react-dom',
           'react/jsx-runtime',
