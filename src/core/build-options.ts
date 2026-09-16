@@ -1,5 +1,4 @@
 import type { Options, Point, SeriesOptionsType } from '../highcharts';
-import { formatValue } from './format';
 import {
   COLUMN,
   COLUMN_HOVER_COLOR,
@@ -232,6 +231,3 @@ export function buildChartOptions(data: NormalizedData, options: AdChartOptions 
     series: buildSeries(data, resolved),
   };
 }
-
-// Re-exported so callers can format values consistently with the tooltip.
-export { formatValue };

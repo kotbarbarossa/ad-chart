@@ -26,14 +26,6 @@ export const SERIES_KEYS: readonly SeriesKey[] = [
   'conversions',
 ] as const;
 
-/** Highcharts series type used for each key. */
-export const SERIES_TYPE: Record<SeriesKey, 'areaspline' | 'column' | 'spline' | 'line'> = {
-  cost: 'areaspline',
-  cpa: 'column',
-  roiConfirmed: 'spline',
-  conversions: 'line',
-};
-
 /** Default human-readable labels (shown in the tooltip). Overridable for i18n. */
 export const DEFAULT_LABELS: Record<SeriesKey, string> = {
   cost: 'Cost',
@@ -131,10 +123,4 @@ export const TOOLTIP = {
   textColor: '#333333',
   fontSize: '13px',
   shadow: true,
-} as const;
-
-/** Colours used only by the demo page decoration (not part of the chart). */
-export const DEMO_DECOR = {
-  pinkCell: '#FCEBEB',
-  topBar: '#E5F0FC',
 } as const;

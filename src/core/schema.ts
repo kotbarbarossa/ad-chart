@@ -34,8 +34,8 @@ function describePath(path: readonly PropertyKey[]): string {
   const [seriesKey, index, field] = path;
   let location = seriesKey === undefined ? 'data' : String(seriesKey);
   if (typeof index === 'number') location += `[${index}]`;
-  if (field === 1 || field === 'value') location += '.value';
-  else if (field === 0 || field === 'date') location += '.time';
+  if (field === 'value') location += '.value';
+  else if (field === 'date') location += '.time';
   return location;
 }
 

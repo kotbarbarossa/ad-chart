@@ -47,17 +47,9 @@ export function normalize(data: AdChartData): NormalizedData {
     (a, b) => a - b,
   );
 
-  const series = {
-    cost: [],
-    cpa: [],
-    roiConfirmed: [],
-    conversions: [],
-  } as Record<SeriesKey, (number | null)[]>;
-
-  for (const key of SERIES_KEYS) {
-    const map = maps[key];
-    series[key] = times.map((t) => map.get(t) ?? null);
-  }
+  const series = Object.fromEntries(
+    SERIES_KEYS.map((key) => [key, times.map((t) => maps[key].get(t) ?? null)]),
+  ) as Record<SeriesKey, (number | null)[]>;
 
   return { times, series };
 }
