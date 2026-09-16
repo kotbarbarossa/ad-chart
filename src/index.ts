@@ -4,6 +4,7 @@ import { parseAdChartData } from './core/schema';
 import type { AdChartData, AdChartOptions } from './core/types';
 import { type Chart, Highcharts } from './highcharts';
 
+export { adChartDataSchema } from './core/schema';
 export type { SeriesKey } from './core/theme';
 export type {
   AdChartData,

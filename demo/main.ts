@@ -5,7 +5,7 @@ import { AdChart } from '../src/react';
 import { randomData, referenceData } from './data';
 
 // The in-context chart (pink table row) always uses the vanilla API.
-const contextChart = createAdChart('#chart-context', referenceData, { height: 220 });
+const contextChart = createAdChart('#chart-context', referenceData);
 
 // The "on white" chart can be rendered by either the vanilla or React entry,
 // toggled below — same data, same look.
@@ -24,10 +24,10 @@ function renderPlain(): void {
   plainEl.replaceChildren();
 
   if (mode === 'vanilla') {
-    vanillaChart = createAdChart(plainEl, currentData, { height: 220 });
+    vanillaChart = createAdChart(plainEl, currentData);
   } else {
     reactRoot = createRoot(plainEl);
-    reactRoot.render(createElement(AdChart, { data: currentData, height: 220 }));
+    reactRoot.render(createElement(AdChart, { data: currentData }));
   }
 }
 
